@@ -1,0 +1,14 @@
+<script setup>
+import { computed } from 'vue'
+import QuantitySelector from '@/components/QuantitySelector.vue'
+import { money } from '@/utils/format'
+
+const props = defineProps({ cart: Array, subtotal: Number })
+const emit = defineEmits(['navigate', 'update-quantity', 'remove'])
+const shipping = computed(() => props.subtotal >= 2000 || props.subtotal === 0 ? 0 : 150)
+const total = computed(() => props.subtotal + shipping.value)
+</script>
+
+<template>
+  <main class="page-shell cart-page"><div class="breadcrumb"><a href="/" @click.prevent="emit('navigate', '/')">Home</a><span>/</span><span>Your cart</span></div><div class="page-title compact"><div><p class="eyebrow">Almost yours</p><h1>Your cart <small v-if="cart.length">({{ cart.length }} {{ cart.length === 1 ? 'item' : 'items' }})</small></h1></div></div><div v-if="cart.length" class="cart-layout"><section class="cart-lines"><article v-for="item in cart" :key="item.id" class="cart-line"><a href="#" class="cart-image" @click.prevent="emit('navigate', `/products/${item.id}`)"><img :src="item.image" :alt="item.name" /></a><div class="cart-item-info"><p class="eyebrow">{{ item.brand }} · {{ item.category }}</p><h2><a href="#" @click.prevent="emit('navigate', `/products/${item.id}`)">{{ item.name }}</a></h2><p class="cart-item-price">{{ money(item.price) }}</p><button class="remove-link" @click="emit('remove', item.id)">Remove</button></div><div class="cart-line-actions"><QuantitySelector :model-value="item.quantity" @update:model-value="emit('update-quantity', { id: item.id, quantity: $event })" /><strong>{{ money(item.price * item.quantity) }}</strong></div></article><button class="text-link continue-link" @click="emit('navigate', '/products')">← Continue shopping</button></section><aside class="order-summary"><h2>Order summary</h2><p><span>Subtotal</span><strong>{{ money(subtotal) }}</strong></p><p><span>Estimated shipping</span><strong>{{ shipping ? money(shipping) : 'Free' }}</strong></p><p class="summary-total"><span>Total</span><strong>{{ money(total) }}</strong></p><button class="btn btn-primary full" @click="emit('navigate', '/checkout')">Secure checkout <span>→</span></button><small>Taxes calculated at checkout.</small><div class="summary-note"><b>✓</b><span>Free shipping on orders over NT$2,000.</span></div></aside></div><div v-else class="empty-state cart-empty"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8.5h12l-1 11H7l-1-11Z" /><path d="M9 8.5V7a3 3 0 0 1 6 0v1.5" /></svg><h2>Your cart is waiting</h2><p>Give your setup something exceptional.</p><button class="btn btn-primary" @click="emit('navigate', '/products')">Shop products <span>→</span></button></div></main>
+</template>

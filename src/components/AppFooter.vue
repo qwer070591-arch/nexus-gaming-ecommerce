@@ -1,0 +1,6 @@
+<script setup>
+const emit = defineEmits(['navigate'])
+</script>
+<template>
+  <footer class="site-footer"><div class="footer-grid"><div><a class="brand footer-brand" href="/" @click.prevent="emit('navigate', '/')"><span class="brand-mark">N</span><span>NEXUS<span class="accent">//</span></span></a><p>Gear selected for better focus, better play, and a setup that feels entirely yours.</p><div class="socials"><a href="#" aria-label="Instagram">◎</a><a href="#" aria-label="X">𝕏</a><a href="#" aria-label="YouTube">▶</a></div></div><div><h3>Shop</h3><a href="/products" @click.prevent="emit('navigate', '/products')">All products</a><a href="/products?category=Keyboards" @click.prevent="emit('navigate', '/products?category=Keyboards')">Keyboards</a><a href="/products?category=Mice" @click.prevent="emit('navigate', '/products?category=Mice')">Mice</a><a href="/products?deals=true" @click.prevent="emit('navigate', '/products?deals=true')">Deals</a></div><div><h3>Support</h3><a href="#">Shipping & returns</a><a href="#">Product care</a><a href="#">Contact us</a><a href="#">FAQ</a></div><div><h3>Contact</h3><p>hello@nexusgear.test</p><p>Mon–Fri, 10:00–18:00</p><p>Taipei, Taiwan</p></div></div><div class="footer-bottom"><span>© 2026 Nexus Gear. Portfolio storefront.</span><span>Privacy &nbsp; · &nbsp; Terms</span></div></footer>
+</template>

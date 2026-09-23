@@ -1,0 +1,6 @@
+<script setup>
+const emit = defineEmits(['navigate'])
+</script>
+<template>
+  <main class="about-page"><section class="about-hero"><p class="eyebrow">About Nexus</p><h1>Gear should disappear.<br><em>Your best play shouldn’t.</em></h1><p>We curate considered computer gear for people who care about how their setup feels as much as how it performs.</p></section><section class="about-grid"><img src="/images/product6.png" alt="Modern gaming setup" /><div><p class="eyebrow">The Nexus approach</p><h2>Details change the whole experience.</h2><p>A better keyboard sound. A mouse that stays out of the way. A monitor that keeps up. These are small choices that add up to a setup you want to return to.</p><button class="btn btn-primary" @click="emit('navigate', '/products')">Explore the collection <span>→</span></button></div></section><section class="values"><div><span>01</span><h3>Purposeful selection</h3><p>No endless scroll. Just hardware chosen for genuine quality and use.</p></div><div><span>02</span><h3>Built around people</h3><p>Clear information, thoughtful support, and no performance theatre.</p></div><div><span>03</span><h3>Made to last</h3><p>We favour equipment you can rely on for more than a season.</p></div></section></main>
+</template>
