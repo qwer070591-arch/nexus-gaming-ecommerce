@@ -22,7 +22,7 @@ NEXUS 是一個以高階 gaming hardware 為主題的前端電商作品集專案
 
 ### 商品詳情
 
-![NEXUS 商品詳情](./docs/screenshots/product-detail.png)
+![NEXUS 商品詳情](./docs/screenshots/products-detail.png)
 
 ### 購物車
 
