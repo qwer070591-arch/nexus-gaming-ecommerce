@@ -12,7 +12,21 @@ NEXUS 是一個以高階 gaming hardware 為主題的前端電商作品集專案
 
 ## 專案畫面
 
-目前尚未加入專案截圖；部署或整理畫面後，可在此區塊補上首頁、商品列表、商品詳情與購物流程的圖片。
+### 首頁
+
+![NEXUS 首頁](./docs/screenshots/home.png)
+
+### 商品列表
+
+![NEXUS 商品列表](./docs/screenshots/products.png)
+
+### 商品詳情
+
+![NEXUS 商品詳情](./docs/screenshots/product-detail.png)
+
+### 購物車
+
+![NEXUS 購物車](./docs/screenshots/cart.png)
 
 ## 主要功能
 
