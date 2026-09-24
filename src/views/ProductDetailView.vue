@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref, watch } from 'vue'
+import { computed, nextTick, ref, watch } from 'vue'
 import ProductGrid from '@/components/ProductGrid.vue'
 import QuantitySelector from '@/components/QuantitySelector.vue'
 import { money } from '@/utils/format'
@@ -9,6 +9,8 @@ const emit = defineEmits(['navigate', 'add', 'toggle-wishlist', 'open'])
 const image = ref('')
 const quantity = ref(1)
 const selectedTab = ref('Description')
+const tabs = ['Description', 'Specifications', 'Shipping']
+const tabButtons = ref([])
 
 const galleryImages = computed(() => Array.from(new Set([
   props.product?.image,
@@ -30,6 +32,23 @@ function add() {
 function buy() {
   add()
   emit('navigate', '/cart')
+}
+
+function selectTab(tab) {
+  selectedTab.value = tab
+}
+
+function handleTabKeydown(event, index) {
+  let nextIndex = index
+  if (event.key === 'ArrowRight') nextIndex = (index + 1) % tabs.length
+  else if (event.key === 'ArrowLeft') nextIndex = (index - 1 + tabs.length) % tabs.length
+  else if (event.key === 'Home') nextIndex = 0
+  else if (event.key === 'End') nextIndex = tabs.length - 1
+  else return
+
+  event.preventDefault()
+  selectTab(tabs[nextIndex])
+  nextTick(() => tabButtons.value[nextIndex]?.focus())
 }
 </script>
 
@@ -101,16 +120,16 @@ function buy() {
 
     <section class="detail-tabs">
       <div role="tablist" aria-label="Product information">
-        <button v-for="tab in ['Description', 'Specifications', 'Shipping']" :key="tab" :class="{ active: selectedTab === tab }" @click="selectedTab = tab">{{ tab }}</button>
+        <button v-for="(tab, index) in tabs" :key="tab" :ref="(element) => { tabButtons[index] = element }" type="button" role="tab" :id="`product-tab-${tab.toLowerCase()}`" :class="{ active: selectedTab === tab }" :aria-controls="`product-panel-${tab.toLowerCase()}`" :aria-selected="selectedTab === tab" :tabindex="selectedTab === tab ? 0 : -1" @click="selectTab(tab)" @keydown="handleTabKeydown($event, index)">{{ tab }}</button>
       </div>
-      <div v-if="selectedTab === 'Description'" class="tab-content">
+      <div v-if="selectedTab === 'Description'" id="product-panel-description" class="tab-content" role="tabpanel" aria-labelledby="product-tab-description" tabindex="0">
         <h2>Designed to perform. Built to last.</h2>
         <p>{{ product.description }} Every detail is considered to make your desk feel more capable and your next session more comfortable.</p>
       </div>
-      <dl v-else-if="selectedTab === 'Specifications'" class="spec-list">
+      <dl v-else-if="selectedTab === 'Specifications'" id="product-panel-specifications" class="spec-list" role="tabpanel" aria-labelledby="product-tab-specifications" tabindex="0">
         <template v-for="(value, key) in product.specifications" :key="key"><dt>{{ key }}</dt><dd>{{ value }}</dd></template>
       </dl>
-      <div v-else class="tab-content">
+      <div v-else id="product-panel-shipping" class="tab-content" role="tabpanel" aria-labelledby="product-tab-shipping" tabindex="0">
         <h2>Simple, reliable delivery.</h2>
         <p>Orders are prepared within 1–2 business days. Standard delivery is free above NT$2,000; express delivery options appear at checkout.</p>
       </div>

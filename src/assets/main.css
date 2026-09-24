@@ -49,6 +49,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .primary-nav a::after { position: absolute; width: 0; height: 2px; right: 0; bottom: -10px; background: var(--lime-strong); content: ''; transition: width .2s; }
 .primary-nav a:hover, .primary-nav a.active { color: var(--ink); }
 .primary-nav a:hover::after, .primary-nav a.active::after { width: 100%; left: 0; }
+.mobile-account-link { display: none; }
 .header-actions { display: flex; align-items: center; gap: 4px; }
 .header-icon { position: relative; display: grid; place-items: center; width: 36px; height: 36px; border: 0; border-radius: 50%; background: transparent; color: var(--ink); font-size: 25px; line-height: 1; transition: background .2s; }
 .header-icon:hover { background: #edf1ef; }
@@ -127,7 +128,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .product-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 17px; }
 .product-card { min-width: 0; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius-md); background: white; transition: border-color var(--transition-normal), box-shadow var(--transition-normal), transform var(--transition-normal); }
 .product-card:focus-within { border-color: #a8b7b8; }
-.product-media { position: relative; aspect-ratio: 4 / 3; height: auto; overflow: hidden; background: #e6eaea; cursor: pointer; }
+.product-media { position: relative; aspect-ratio: 4 / 3; height: auto; overflow: hidden; background: #e6eaea; }
+.product-media-link { display: block; width: 100%; height: 100%; cursor: pointer; }
 .product-media img { width: 100%; height: 100%; object-fit: cover; object-position: center; transition: transform var(--transition-normal) ease; }
 .product-badge { position: absolute; z-index: 2; top: 11px; left: 11px; display: inline-block; padding: 5px 8px; border-radius: 3px; background: var(--orange); color: white; font-family: var(--mono); font-size: 9px; font-weight: 500; letter-spacing: .03em; }
 .product-badge.light { background: var(--lime); color: var(--ink); }
@@ -439,6 +441,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   .primary-nav.open { display: flex; }
   .primary-nav a { padding: 11px 0; }
   .primary-nav a::after { display: none; }
+  .primary-nav .mobile-account-link { display: block; }
   .menu-button { display: block; }
   .account-link { display: none; }
   .hero { min-height: auto; grid-template-columns: 1fr; }

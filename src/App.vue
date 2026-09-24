@@ -54,7 +54,7 @@ onUnmounted(() => window.removeEventListener('popstate', syncLocation))
     <CheckoutView v-else-if="route === '/checkout'" :cart="cart" :subtotal="subtotal" @navigate="navigate" @clear-cart="clearCart" @notice="notify" />
     <AuthView v-else-if="route === '/login'" mode="login" @navigate="navigate" @notice="notify" />
     <AuthView v-else-if="route === '/register'" mode="register" @navigate="navigate" @notice="notify" />
-    <AccountView v-else-if="route === '/account'" @navigate="navigate" />
+    <AccountView v-else-if="route === '/account'" @navigate="navigate" @notice="notify" />
     <WishlistView v-else-if="route === '/wishlist'" :products="products" :wishlist-ids="wishlistIds" @navigate="navigate" @add="add" @toggle-wishlist="handleWishlist" @open="openProduct" />
     <AboutView v-else-if="route === '/about'" @navigate="navigate" />
     <main v-else class="page-shell"><div class="empty-state"><span>◌</span><h2>Page not found</h2><p>That page doesn’t exist in this demo storefront.</p><button class="btn btn-primary" @click="navigate('/')">Return home</button></div></main>

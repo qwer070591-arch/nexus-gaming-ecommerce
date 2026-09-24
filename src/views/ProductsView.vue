@@ -9,6 +9,7 @@ const emit = defineEmits(['add', 'toggle-wishlist', 'open', 'navigate'])
 const searchTerm = ref('')
 const category = ref('All')
 const dealOnly = ref(false)
+const featuredOnly = ref(false)
 const sort = ref('featured')
 const price = ref(20000)
 const count = ref(8)
@@ -18,12 +19,13 @@ function applyQuery() {
   searchTerm.value = props.query.q || ''
   category.value = props.query.category || 'All'
   dealOnly.value = props.query.deals === 'true'
+  featuredOnly.value = props.query.featured === 'true'
   sort.value = props.query.sort || 'featured'
   count.value = 8
 }
 
 watch(() => props.query, applyQuery, { immediate: true, deep: true })
-watch([searchTerm, category, dealOnly, sort, price], () => { count.value = 8 })
+watch([searchTerm, category, dealOnly, featuredOnly, sort, price], () => { count.value = 8 })
 
 const results = computed(() => {
   const term = searchTerm.value.toLowerCase().trim()
@@ -31,6 +33,7 @@ const results = computed(() => {
     (!term || [product.name, product.category, product.brand].some((value) => value.toLowerCase().includes(term)))
     && (category.value === 'All' || product.category === category.value)
     && (!dealOnly.value || product.originalPrice)
+    && (!featuredOnly.value || product.featured === true)
     && product.price <= price.value
   ))
 
@@ -62,6 +65,7 @@ function resetFilters() {
   searchTerm.value = ''
   category.value = 'All'
   dealOnly.value = false
+  featuredOnly.value = false
   price.value = 20000
   sort.value = 'featured'
 }
