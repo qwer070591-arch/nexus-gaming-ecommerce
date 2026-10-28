@@ -1,283 +1,56 @@
-# NEXUS — Gaming E-commerce
+# NEXUS — 電競裝備展示網站
 
-NEXUS 是一個以高階 Gaming Hardware 為主題的前端電商作品集專案。
+NEXUS 是 Vue 3 與 Vite 製作的前端電商作品集。網站以 Obsidian Editorial 視覺呈現電競周邊與桌面配置，包含四系列 Coverflow、商品探索、關於品牌的展示頁，以及可操作的購物車與收藏清單。
 
-專案以 Vue 3 + Vite 建立，聚焦於產品瀏覽、商品篩選、購物車、收藏清單與電商常見互動流程，並透過 Responsive Design 與一致的 UI 回饋，打造完整的單頁式購物體驗。
+> **展示範圍：**商品、價格、評價與優惠為示範資料。登入、註冊、會員與結帳皆為介面展示；沒有後端帳號、真實訂單、付款、配送或客服服務。請勿輸入真實個資。
 
-> 此專案為前端作品集專案。Login、Register、Checkout 與 Account 為 Demo 流程，目前未串接真實後端、付款服務或會員資料庫。
+## 功能
 
----
+- **首頁：**六個敘事區塊、四系列 Full-Bleed Coverflow、6 秒自動輪播、手動播放／暫停、拖曳、鍵盤操作與 reduced-motion 支援。
+- **商品：**24 筆示範商品、關鍵字搜尋、分類、價格與優惠篩選、排序、商品詳情與圖片瀏覽。
+- **購物車與收藏：**加入、移除、調整數量；使用瀏覽器 `localStorage` 保存，沒有跨裝置同步。
+- **關於我們：**八個品牌展示區塊及四系列入口。
+- **響應式介面：**桌面、平板與手機版導覽、商品網格及篩選抽屜。
 
-## Live Demo
+## 畫面
 
-🔗 [View Live Demo](https://nexus-gaming-ecommerce.vercel.app)
+| 首頁 | 商品列表 |
+| --- | --- |
+| ![NEXUS 首頁桌面版](docs/portfolio-screenshots/home-1440.png) | ![NEXUS 商品列表桌面版](docs/portfolio-screenshots/products-1440.png) |
 
----
+| 關於我們 | 手機首頁 |
+| --- | --- |
+| ![NEXUS 關於我們桌面版](docs/portfolio-screenshots/about-1440.png) | ![NEXUS 首頁手機版](docs/portfolio-screenshots/home-390.png) |
 
-## 專案畫面
+以上截圖由本機 production preview 產出，非雲端服務畫面。Hero 與 About 的 AI 圖片為作品集示意攝影，不代表特定真實商品的精確外觀或規格。
 
-### 首頁
+## 技術
 
-![NEXUS 首頁](./docs/screenshots/home.png)
+- Vue 3、Vite、JavaScript、CSS。
+- Embla Carousel 與 GSAP 用於首頁輪播和局部動態效果。
+- Browser History API 處理前端路由；`localStorage` 保存購物車與收藏。
+- 本專案目前不使用 `vue-router` 的路由實作，雖然它仍列於依賴中。
 
-### 商品列表
+## 本機執行
 
-![NEXUS 商品列表](./docs/screenshots/products.png)
-
-### 商品詳情
-
-![NEXUS 商品詳情](./docs/screenshots/products-detail.png)
-
-### 購物車
-
-![NEXUS 購物車](./docs/screenshots/cart.png)
-
----
-
-## 專案介紹
-
-此專案以「專業遊戲周邊選購」為情境，練習將產品資料、篩選邏輯、狀態管理與電商常見互動整合到 Vue 3 介面中。
-
-視覺方向採用黑、白與 Acid Green 作為主要配色，搭配大型產品圖片、清楚的資訊層級與一致的互動回饋，呈現 Gaming Hardware 電商的品牌風格。
-
-專案目前以 Frontend 為主要開發範圍，商品資料由前端資料檔管理，Cart 與 Wishlist 則使用 Browser `localStorage` 保存狀態。
-
----
-
-## 主要功能
-
-- **商品目錄**
-  - 提供 24 項 Gaming Hardware 商品資料
-  - 支援不同商品分類瀏覽
-
-- **搜尋與篩選**
-  - 關鍵字搜尋
-  - 商品分類
-  - 價格範圍
-  - Deals
-  - Featured Products
-
-- **商品排序**
-  - Featured
-  - 評分
-  - 價格由低至高
-  - 價格由高至低
-
-- **商品詳情**
-  - 商品資訊
-  - 規格資訊
-  - 圖片 Gallery
-  - 數量選擇
-  - Related Products
-
-- **Wishlist**
-  - 加入收藏
-  - 取消收藏
-  - 使用 `localStorage` 保存狀態
-
-- **Cart**
-  - 加入購物車
-  - 修改商品數量
-  - 移除商品
-  - 運費計算
-  - 購物車總額計算
-  - 使用 `localStorage` 保存狀態
-
-- **Checkout Demo**
-  - 收件資料
-  - 運送方式
-  - 付款方式
-  - 完成 Demo Order 後清空購物車
-
-- **Login / Register Demo**
-  - 基本表單驗證
-  - Login / Register 前端流程
-  - Demo Account 操作
-
-- **Toast Feedback**
-  - 加入購物車
-  - Wishlist
-  - Login / Register
-  - Checkout
-  - Account 操作
-
-- **Responsive Design**
-  - Desktop / Tablet / Mobile
-  - 手機版 Navigation
-  - 商品篩選 Drawer
-  - Responsive Product Grid
-
----
-
-## UI / UX 設計
-
-- 以 Gaming Hardware E-commerce 為主要視覺方向
-- 黑白基底搭配 Acid Green 強調色
-- 維持一致的商品卡與圖片比例
-- Product Detail 使用 Gallery 呈現產品圖片
-- 清楚區分 Primary / Secondary Actions
-- 互動元件提供 Hover 與 Focus 狀態
-- 關鍵操作提供 Toast Feedback
-- 支援 Keyboard Navigation 的主要互動元件
-- Responsive Layout 適應不同螢幕尺寸
-
----
-
-## 技術使用
-
-- [Vue 3](https://vuejs.org/)
-  - Composition API
-  - Component-based UI
-  - Reactive State
-  - Computed State
-
-- [Vite](https://vite.dev/)
-  - Development Server
-  - Production Build
-
-- JavaScript
-  - ES Modules
-  - Event Handling
-  - Browser APIs
-
-- CSS
-  - Responsive Layout
-  - CSS Variables / Design Tokens
-  - Component States
-  - Mobile Navigation
-
-- Browser `localStorage`
-  - Cart Persistence
-  - Wishlist Persistence
-  - Defensive Data Validation
-
-- History API
-  - Client-side Navigation
-  - Query Parameters
-
-- Playwright
-  - Browser-based Functional QA
-  - Navigation Testing
-  - Cart / Wishlist Flow Verification
-  - Console Error Checking
-
----
-
-## 測試與品質驗證
-
-專案完成後進行 Production Build 與實際瀏覽器功能驗證。
-
-### Production Build
+需符合 `package.json` 的 Node.js `engines` 範圍。
 
 ```bash
-npm run build
-```
-
-Production Build 驗證成功。
-
-### Browser QA
-
-使用 Playwright 實際操作並驗證主要使用流程：
-
-- 首頁載入
-- Navigation
-- Products 商品列表
-- Product Detail
-- Featured Products 篩選
-- Cart 加入商品
-- Cart 數量修改
-- Cart 商品移除
-- Wishlist 收藏 / 取消收藏
-- Cart / Wishlist `localStorage` Persistence
-- Login / Register Demo
-- Account Save Feedback
-- JavaScript / Vue Runtime Console Errors
-
-主要測試流程未發現 JavaScript 或 Vue Runtime Error。
-
-> Playwright 目前用於開發階段的瀏覽器 QA，尚未建立為專案內正式的自動化 E2E Test Suite。
-
----
-
-## 專案結構
-
-```text
-src/
-├─ assets/          # 全域樣式與靜態資源
-├─ components/      # Header、Footer、商品卡、Filter、Toast 等可重用元件
-├─ composables/     # Cart 與 Wishlist 狀態管理
-├─ data/            # 商品與分類資料
-├─ utils/           # 金額格式化等共用工具
-├─ views/           # 首頁、商品、詳情、購物車、Checkout、Account 等頁面
-├─ App.vue          # 應用程式頁面與路由狀態
-└─ main.js          # Vue Application Entry
-
-public/
-└─ images/          # 商品圖片與 Gallery Assets
-```
-
----
-
-## 安裝與執行
-
-Clone 專案後安裝 dependencies：
-
-```bash
-npm install
-```
-
-啟動 Development Server：
-
-```bash
+npm ci
 npm run dev
 ```
 
-建立 Production Build：
+正式建置與本機預覽：
 
 ```bash
 npm run build
-```
-
-預覽 Production Build：
-
-```bash
 npm run preview
 ```
 
----
+建置輸出在 `dist/`。靜態主機需將未知路徑回寫到 `index.html`，否則直接開啟或重新整理商品與 About 子頁面可能得到 404。公開部署前，應依實際網域設定分享預覽與 canonical URL，並重新驗證所有子路由。
 
-## 開發重點
+## 品質與限制
 
-### Data-driven Components
+專案支援鍵盤操作、可見焦點與 `prefers-reduced-motion`。Phase 3 的實際檢查結果、未完成項目與發布判定記錄於 [品質報告](docs/phase3-production-readiness.md)。本機測試不能代表真實使用者的 INP 或雲端正式環境品質。
 
-商品列表與商品詳情皆由資料驅動，避免為不同商品重複建立相同 UI 結構。
-
-### State Management
-
-將購物車與收藏相關邏輯集中於 `useStore` composable，並透過 `localStorage` 保存使用者狀態。
-
-針對異常或格式錯誤的 localStorage 資料加入防禦性驗證，避免錯誤資料造成 Runtime Error。
-
-### Product Filtering
-
-商品搜尋、分類、Featured、Deals、價格與排序透過 Reactive / Computed State 處理，維持 UI 與資料狀態一致。
-
-### Responsive UI
-
-依照 Desktop、Tablet 與 Mobile 調整 Navigation、商品 Grid、Filter 與主要操作區域。
-
-### Client-side Navigation
-
-使用 Browser History API 處理頁面切換與 Query Parameters，在不額外依賴 Router Library 的情況下維持輕量化 SPA Navigation。
-
----
-
-## 後續改善
-
-- 串接 Backend API
-- 建立真實會員驗證系統
-- 建立會員與訂單資料庫
-- 串接實際付款流程
-- 建立正式 Playwright E2E Test Suite
-- 補充 Unit Test / Component Test
-- 導入 CI，自動執行 Build 與 Test
+目前沒有經本階段確認的公開 Demo 網址，因此不列出 Live Demo 連結。未來可補上正式部署、路由專用社群預覽、正式自動化測試與持續整合。

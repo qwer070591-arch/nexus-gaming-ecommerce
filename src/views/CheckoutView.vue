@@ -1,16 +1,34 @@
 <script setup>
-import { computed, reactive, ref } from 'vue'
+import { computed, ref } from 'vue'
 import { money } from '@/utils/format'
 
-const props = defineProps({ cart: Array, subtotal: Number })
-const emit = defineEmits(['navigate', 'clear-cart', 'notice'])
-const form = reactive({ name: '', email: '', phone: '', address: '', city: '', shipping: 'standard', payment: 'card' })
-const submitted = ref(false)
-const shippingCost = computed(() => form.shipping === 'express' ? 250 : (props.subtotal >= 2000 ? 0 : 150))
+const props = defineProps({ cart: { type: Array, default: () => [] }, subtotal: { type: Number, default: 0 } })
+const emit = defineEmits(['navigate', 'notice'])
+const shipping = ref('standard')
+const completed = ref(false)
+const shippingCost = computed(() => shipping.value === 'express' ? 250 : (props.subtotal >= 2000 ? 0 : 150))
 const total = computed(() => props.subtotal + shippingCost.value)
-function complete() { submitted.value = true; emit('clear-cart'); emit('notice', 'Order placed — thank you for shopping Nexus.') }
+
+function finishDemo() {
+  completed.value = true
+  emit('notice', '展示流程已完成。不會產生真實訂單或付款，購物車內容仍會保留。')
+}
 </script>
 
 <template>
-  <main class="page-shell checkout-page"><div class="breadcrumb"><a href="/cart" @click.prevent="emit('navigate', '/cart')">Cart</a><span>/</span><span>Checkout</span></div><div v-if="cart.length && !submitted" class="checkout-layout"><form class="checkout-form" @submit.prevent="complete"><div class="checkout-heading"><p class="eyebrow">Secure checkout</p><h1>Shipping & payment</h1><p>This is a frontend demonstration. Please do not enter real payment details.</p></div><fieldset><legend>Customer information</legend><div class="form-grid"><label>Full name<input v-model.trim="form.name" required autocomplete="name" placeholder="Jamie Chen" /></label><label>Email address<input v-model.trim="form.email" required type="email" autocomplete="email" placeholder="jamie@example.com" /></label><label>Phone number<input v-model.trim="form.phone" required type="tel" autocomplete="tel" placeholder="09xx-xxx-xxx" /></label><label>City / region<input v-model.trim="form.city" required autocomplete="address-level2" placeholder="Taipei" /></label><label class="full-field">Address<input v-model.trim="form.address" required autocomplete="street-address" placeholder="Street address" /></label></div></fieldset><fieldset><legend>Shipping method</legend><label class="choice-card"><input v-model="form.shipping" value="standard" type="radio" /><span><b>Standard delivery</b><small>3–5 business days</small></span><strong>{{ subtotal >= 2000 ? 'Free' : 'NT$150' }}</strong></label><label class="choice-card"><input v-model="form.shipping" value="express" type="radio" /><span><b>Express delivery</b><small>1–2 business days</small></span><strong>NT$250</strong></label></fieldset><fieldset><legend>Payment method</legend><label class="choice-card"><input v-model="form.payment" value="card" type="radio" /><span><b>Credit or debit card</b><small>Demo only — no card fields are collected</small></span><strong>▣</strong></label><label class="choice-card"><input v-model="form.payment" value="transfer" type="radio" /><span><b>Bank transfer</b><small>Instructions would be sent after order</small></span><strong>↗</strong></label><label class="choice-card"><input v-model="form.payment" value="cod" type="radio" /><span><b>Cash on delivery</b><small>Pay when your order arrives</small></span><strong>◌</strong></label></fieldset><button class="btn btn-primary checkout-button">Place demo order <span>→</span></button></form><aside class="checkout-summary"><h2>Your order</h2><div class="checkout-items"><div v-for="item in cart" :key="item.id"><img :src="item.image" :alt="item.name" /><span><b>{{ item.name }}</b><small>Qty {{ item.quantity }}</small></span><strong>{{ money(item.price * item.quantity) }}</strong></div></div><p><span>Subtotal</span><strong>{{ money(subtotal) }}</strong></p><p><span>Shipping</span><strong>{{ shippingCost ? money(shippingCost) : 'Free' }}</strong></p><p class="summary-total"><span>Total</span><strong>{{ money(total) }}</strong></p></aside></div><div v-else class="empty-state"><span>✓</span><h2>{{ submitted ? 'Your demo order is confirmed' : 'Your cart is empty' }}</h2><p>{{ submitted ? 'A real order was not created and no payment data was processed.' : 'Add a few products before checking out.' }}</p><button class="btn btn-primary" @click="emit('navigate', '/products')">{{ submitted ? 'Keep shopping' : 'Browse products' }}</button></div></main>
+  <main class="page-shell checkout-page">
+    <div class="breadcrumb"><a href="/cart" @click.prevent="emit('navigate', '/cart')">購物車</a><span>/</span><span>展示結帳</span></div>
+    <div v-if="cart.length && !completed" class="checkout-layout">
+      <section class="checkout-form" aria-labelledby="checkout-title">
+        <div class="checkout-heading"><p class="eyebrow">作品集展示流程</p><h1 id="checkout-title">結帳流程預覽。</h1><p>此頁僅供展示用途，不會收集個資或付款資料，也不會產生真實訂單或配送。展示購物車仍會保留。</p></div>
+        <div class="demo-checkout-panel"><h2>示意收件人</h2><p>展示收件人 · 展示城市</p><small>僅為示意資料；本頁沒有個資輸入欄位。</small></div>
+        <fieldset class="demo-shipping"><legend>示意配送選項</legend><label class="choice-card"><input v-model="shipping" value="standard" type="radio" name="demo-shipping" /><span><b>一般配送示意</b><small>僅供版面預覽</small></span><strong>{{ subtotal >= 2000 ? 'NT$0' : 'NT$150' }}</strong></label><label class="choice-card"><input v-model="shipping" value="express" type="radio" name="demo-shipping" /><span><b>快速配送示意</b><small>僅供版面預覽</small></span><strong>NT$250</strong></label></fieldset>
+        <div class="demo-checkout-panel"><h2>付款</h2><p>展示網站不提供付款功能。</p><small>不會要求信用卡、銀行或貨到付款資料。</small></div>
+        <button type="button" class="btn btn-primary checkout-button" @click="finishDemo">完成展示流程 <span aria-hidden="true">→</span></button>
+        <p class="demo-checkout-footnote">此操作不會產生訂單，也不會清空購物車。</p>
+      </section>
+      <aside class="checkout-summary" aria-label="示意購物車摘要"><h2>展示購物車摘要</h2><div class="checkout-items"><div v-for="item in cart" :key="item.id"><img :src="item.image" :alt="item.name" /><span><b>{{ item.name }}</b><small>數量 {{ item.quantity }}</small></span><strong>{{ money(item.price * item.quantity) }}</strong></div></div><p><span>商品小計</span><strong>{{ money(subtotal) }}</strong></p><p><span>示意運費</span><strong>{{ money(shippingCost) }}</strong></p><p class="summary-total"><span>示意合計</span><strong>{{ money(total) }}</strong></p><small>不提供實際付款或配送。</small></aside>
+    </div>
+    <div v-else class="empty-state"><span aria-hidden="true">✓</span><h1>{{ completed ? '展示流程已完成' : '購物車目前是空的' }}</h1><p>{{ completed ? '不會產生真實訂單或付款，購物車內容仍會保留。' : '加入展示商品，即可體驗結帳介面。' }}</p><button type="button" class="btn btn-primary" @click="emit('navigate', completed ? '/cart' : '/products')">{{ completed ? '返回展示購物車' : '瀏覽商品' }}</button></div>
+  </main>
 </template>

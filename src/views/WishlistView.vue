@@ -28,7 +28,7 @@ const items = computed(() =>
 </script>
 
 <template>
-  <main class="page-shell wishlist-page">
+  <main class="page-shell wishlist-page" :class="{ 'wishlist-page--empty': !items.length }">
 
     <!-- Breadcrumb -->
     <div class="breadcrumb">
@@ -36,22 +36,22 @@ const items = computed(() =>
         href="/"
         @click.prevent="emit('navigate', '/')"
       >
-        Home
+        首頁
       </a>
 
       <span>/</span>
-      <span>Wishlist</span>
+      <span>收藏清單</span>
     </div>
 
     <!-- Page title -->
     <div class="page-title compact">
       <div>
-        <p class="eyebrow">Saved for later</p>
+        <p class="eyebrow">稍後再看</p>
 
-        <h1>Your wishlist</h1>
+        <h1>我的收藏</h1>
 
         <p>
-          Keep an eye on the gear that caught your attention.
+          把喜歡的裝備存起來，隨時回來看看。
         </p>
       </div>
     </div>
@@ -71,12 +71,12 @@ const items = computed(() =>
       v-else
       class="empty-state wishlist-empty"
     >
-      <span>♡</span>
+      <svg class="wishlist-empty__icon" viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M24 40.5 7.8 24.7a10.1 10.1 0 0 1 14.3-14.3L24 12.3l1.9-1.9a10.1 10.1 0 0 1 14.3 14.3L24 40.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
 
-      <h2>Your wishlist is empty</h2>
+      <h2>收藏清單目前是空的</h2>
 
       <p>
-        Save your favorite gear and come back to it anytime.
+        瀏覽商品，將喜歡的裝備加入收藏。
       </p>
 
       <button
@@ -84,7 +84,7 @@ const items = computed(() =>
         class="btn btn-primary"
         @click="emit('navigate', '/products')"
       >
-        Explore products
+        瀏覽商品
         <span>→</span>
       </button>
     </div>

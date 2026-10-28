@@ -4,6 +4,9 @@ node_modules/
 # Build output
 dist/
 
+# Local QA and generated source artifacts
+output/
+
 # Environment files
 .env
 .env.*
