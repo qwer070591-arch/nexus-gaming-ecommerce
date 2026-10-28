@@ -6,9 +6,9 @@ NEXUS 是以 Vue 3、Vite 與原生 CSS 製作的前端工程作品集。專案�
 
 ## 專案畫面
 
-![NEXUS 首頁桌面版：四系列 Coverflow 與品牌敘事區塊](docs/portfolio-screenshots/home-1440.png)
+![NEXUS 首頁桌面版：Header 與 Editorial Coverflow](docs/portfolio-screenshots/readme-preview.png)
 
-[手機首頁](docs/portfolio-screenshots/home-390.png) · [桌面商品列表](docs/portfolio-screenshots/products-1440.png) · [手機商品列表](docs/portfolio-screenshots/products-390.png) · [桌面關於頁](docs/portfolio-screenshots/about-1440.png) · [手機關於頁](docs/portfolio-screenshots/about-390.png)
+**其他畫面：** [手機首頁](docs/portfolio-screenshots/home-390.png) · [桌面商品列表](docs/portfolio-screenshots/products-1440.png) · [手機商品列表](docs/portfolio-screenshots/products-390.png) · [桌面關於頁](docs/portfolio-screenshots/about-1440.png) · [手機關於頁](docs/portfolio-screenshots/about-390.png)
 
 截圖為本機 Production Preview 畫面；正式站可能因更新或輪播位置而略有差異。部分產品與品牌情境攝影為 AI 生成的概念圖片，不代表真實商品的精確外觀或規格。
 
