@@ -4,7 +4,7 @@ import { money } from '@/utils/format'
 import { categoryLabel, badgeLabel } from '@/utils/locale'
 import WishlistButton from './WishlistButton.vue'
 
-const props = defineProps({ product: { type: Object, required: true }, wishlisted: Boolean })
+const props = defineProps({ product: { type: Object, required: true }, wishlisted: Boolean, prioritizeImage: Boolean })
 const emit = defineEmits(['add', 'toggle-wishlist', 'open'])
 const discount = computed(() => props.product.originalPrice ? Math.round((1 - props.product.price / props.product.originalPrice) * 100) : null)
 </script>
@@ -13,7 +13,7 @@ const discount = computed(() => props.product.originalPrice ? Math.round((1 - pr
   <article class="product-card">
     <div class="product-media">
       <a :href="`/products/${product.id}`" class="product-media-link" @click.prevent="emit('open', product)">
-        <img :src="product.image" :alt="product.name" loading="lazy" />
+        <img :src="product.image" :alt="product.name" :loading="prioritizeImage ? 'eager' : 'lazy'" :fetchpriority="prioritizeImage ? 'high' : undefined" />
         <span v-if="product.badge" class="product-badge" :class="{ light: product.badge === 'New' }">{{ badgeLabel(product.badge) }}</span>
       </a>
       <WishlistButton :active="wishlisted" @toggle="emit('toggle-wishlist', product.id)" />

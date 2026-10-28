@@ -219,6 +219,7 @@ function handleDrawerKeydown(event) {
           :products="visible"
           :wishlist-ids="wishlistIds"
           :empty-description="emptyStateDescription"
+          prioritize-first-image
           @add="emit('add', $event)"
           @toggle-wishlist="emit('toggle-wishlist', $event)"
           @open="emit('open', $event)"
