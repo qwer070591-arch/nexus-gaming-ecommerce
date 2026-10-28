@@ -1,19 +1,26 @@
 <script setup>
-import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
+import { computed, defineAsyncComponent, h, onMounted, onUnmounted, ref, watch } from 'vue'
 import { products } from '@/data/products'
 import { useStore } from '@/composables/useStore'
 import AppHeader from '@/components/AppHeader.vue'
 import AppFooter from '@/components/AppFooter.vue'
 import ToastNotice from '@/components/ToastNotice.vue'
-import HomeView from '@/views/HomeView.vue'
 import ProductsView from '@/views/ProductsView.vue'
-import ProductDetailView from '@/views/ProductDetailView.vue'
-import CartView from '@/views/CartView.vue'
-import CheckoutView from '@/views/CheckoutView.vue'
-import AuthView from '@/views/AuthView.vue'
-import AccountView from '@/views/AccountView.vue'
-import WishlistView from '@/views/WishlistView.vue'
-import AboutView from '@/views/AboutView.vue'
+
+const RouteLoading = { render: () => h('main', { class: 'page-shell route-loading', role: 'status' }, '頁面載入中…') }
+const RouteLoadError = { render: () => h('main', { class: 'page-shell route-loading', role: 'alert' }, [
+  h('p', '頁面載入失敗，請重新整理後再試。'),
+  h('button', { class: 'btn btn-primary', type: 'button', onClick: () => window.location.reload() }, '重新載入'),
+]) }
+const asyncView = (loader) => defineAsyncComponent({ loader, loadingComponent: RouteLoading, errorComponent: RouteLoadError, delay: 0 })
+const HomeView = asyncView(() => import('@/views/HomeView.vue'))
+const ProductDetailView = asyncView(() => import('@/views/ProductDetailView.vue'))
+const CartView = asyncView(() => import('@/views/CartView.vue'))
+const CheckoutView = asyncView(() => import('@/views/CheckoutView.vue'))
+const AuthView = asyncView(() => import('@/views/AuthView.vue'))
+const AccountView = asyncView(() => import('@/views/AccountView.vue'))
+const WishlistView = asyncView(() => import('@/views/WishlistView.vue'))
+const AboutView = asyncView(() => import('@/views/AboutView.vue'))
 
 const { cart, wishlistIds, cartCount, subtotal, addToCart, updateQuantity, removeFromCart, toggleWishlist } = useStore()
 const route = ref(window.location.pathname)

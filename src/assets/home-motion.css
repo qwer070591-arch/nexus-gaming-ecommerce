@@ -1,12 +1,3 @@
-.app-shell--home .site-header { border-color: rgba(255, 255, 255, .07); background: rgba(16, 22, 25, .96); color: #fff; }
-.app-shell--home .site-header .brand-mark { background: var(--lime); color: var(--night); }
-.app-shell--home .site-header .accent { color: var(--lime); }
-.app-shell--home .site-header .primary-nav a { color: #c3cece; }
-.app-shell--home .site-header .primary-nav a:hover, .app-shell--home .site-header .primary-nav a.active { color: #fff; }
-.app-shell--home .site-header .header-icon { color: #fff; }
-.app-shell--home .site-header .header-icon:hover { background: rgba(255, 255, 255, .12); }
-.app-shell--home .site-header .menu-button i { background: #fff; }
-
 .nexus-home { overflow: clip; }
 .nexus-home em { color: var(--lime); font-family: Georgia, serif; font-weight: 400; }
 .nexus-home .nexus-overline { display: flex; align-items: center; gap: 11px; font-family: var(--mono); font-size: 10px; font-weight: 500; letter-spacing: .15em; line-height: 1.5; text-transform: uppercase; }
